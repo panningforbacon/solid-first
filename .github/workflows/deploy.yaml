@@ -12,7 +12,7 @@ jobs:
 
     env:
       SOURCE_DIR: 'dist'
-      TARGET_DIR: ${{ format('/var/www/sites/{0}', GITHUB_REPOSITORY) }}
+      TARGET_DIR: ${{ format('/var/www/sites/{0}', split(github.repository, '/')[1]) }}
 
     steps:
       - name: Checkout
