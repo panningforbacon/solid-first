@@ -39,18 +39,5 @@ jobs:
           source: ${{ env.SOURCE }}
           target: ${{ env.TARGET }}
       
-      - name: Restart the server
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.SSH_HOST }}
-          port: ${{ secrets.SSH_PORT }}
-          username: ${{ secrets.SSH_USER }}
-          key: ${{ secrets.SSH_KEY }}
-          script: |
-            mkdir -p ${{ env.TARGET }}
-            cd ${{ env.TARGET }}
-            npm install --production
-            pm2 restart all
-
       - name: Notify completion
         run: echo "Deployment to DigitalOcean completed."
