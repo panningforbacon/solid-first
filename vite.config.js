@@ -11,6 +11,7 @@ export default defineConfig({
     // devtools(),
     solidPlugin(),
   ],
+  base: '/solid-first/',
   server: {
     port: 3000,
   },
