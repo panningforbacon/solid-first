@@ -12,7 +12,7 @@ jobs:
 
     env:
       SOURCE_DIR: 'dist'
-      TARGET_DIR: ${{ format('/var/www/sites/{0}', github.repository.name) }}
+      TARGET_DIR: ${{ format('/var/www/sites/{0}', GITHUB_REPOSITORY) }}
 
     steps:
       - name: Checkout
@@ -22,7 +22,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-      
+
       - name: Install dependencies
         run: npm ci
       
@@ -45,7 +45,7 @@ jobs:
           host: ${{ secrets.SSH_HOST }}
           port: ${{ secrets.SSH_PORT }}
           username: ${{ secrets.SSH_USER }}
-          key: ${{ secrets.KEY }}
+          key: ${{ secrets.SSH_KEY }}
           script: |
             mkdir -p ${{ env.TARGET_DIR }}
             cd ${{ env.TARGET_DIR }}
