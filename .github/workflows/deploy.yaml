@@ -12,7 +12,7 @@ jobs:
 
     env:
       SOURCE_DIR: 'dist'
-      TARGET_DIR: ${{ '/var/www/sites/' + github.repository.name }}
+      TARGET_DIR: ${{ format('/var/www/sites/{0}', github.repository.name) }}
 
     steps:
       - name: Checkout
@@ -22,10 +22,10 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-
+      
       - name: Install dependencies
         run: npm ci
-
+      
       - name: Build the app
         run: npm run build
       
@@ -36,7 +36,7 @@ jobs:
           port: ${{ secrets.SSH_PORT }}
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_KEY }}
-          source: ${{ env.SOURCE_DIR + '/*' }}
+          source: ${{ format('{0}/*', env.SOURCE_DIR) }}
           target: ${{ env.TARGET_DIR }}
       
       - name: Restart the server
